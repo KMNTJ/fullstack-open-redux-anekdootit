@@ -23,6 +23,10 @@ const reducer = (state = initialState, action) => {
   console.log('state now: ', state)
   console.log('action', action)
 
+  if (action.type === 'VOTE') {
+    return state.map(o => o.id === action.payload.id ? {...o, votes: o.votes +1} : o)
+  }
+
   return state
 }
 
