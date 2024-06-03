@@ -42,4 +42,18 @@ const reducer = (state = initialState, action) => {
   }
 };
 
+export const vote = (id) => {
+  return ({ type: "VOTE", payload: { id: id } });
+}
+
+export const createAnecdote = (event) => {
+  event.preventDefault();
+  const toCreate = event.target.anecdote.value;
+  event.target.anecdote.value = "";
+  return ({
+    type: "CREATE",
+    payload: { anecdote: toCreate },
+  });
+}
+
 export default reducer;
