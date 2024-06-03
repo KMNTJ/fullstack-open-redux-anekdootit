@@ -24,10 +24,13 @@ const reducer = (state = initialState, action) => {
   console.log("action", action);
 
   switch (action.type) {
-    case "VOTE":
-      return state.map((o) =>
+    case "VOTE": {
+      const newState = state.map((o) =>
         o.id === action.payload.id ? { ...o, votes: o.votes + 1 } : o
       );
+      newState.sort((a, b) => b.votes - a.votes) 
+      return newState;
+    }
     case "CREATE":
       return state.concat({
         content: action.payload.anecdote,
