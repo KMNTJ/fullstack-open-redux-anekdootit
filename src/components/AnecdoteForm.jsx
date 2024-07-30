@@ -5,7 +5,8 @@ export const AnecdoteForm = () => {
   const dispatch = useDispatch();
 
   const addAnecdote = (event) => {
-    dispatch(createAnecdote(event));
+    event.preventDefault();
+    dispatch(createAnecdote(event.target.anecdote.value));
   };
 
   return (

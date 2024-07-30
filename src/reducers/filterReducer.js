@@ -1,23 +1,17 @@
-const filterInitialState = "";
+import { createSlice } from "@reduxjs/toolkit";
 
-const filterReducer = (state = filterInitialState, action) => {
-  switch (action.type) {
-    case "WRITE": {
-      const newState = action.payload;
-      return newState;
-    }
-    case "READ":
-      return state;
-    default:
-      return state;
-  }
-};
+const initialState = "";
 
-export const filterText = (inputValue) => {
-  return {
-    type: "WRITE",
-    payload: inputValue,
-  };
-};
+const filterSlice = createSlice({
+  name: "filter",
+  initialState,
+  reducers: {
+    textFilter(state, action) {
+      const textToFilterBy = action.payload;
+      return textToFilterBy;
+    },
+  },
+});
 
-export default filterReducer;
+export const { textFilter } = filterSlice.actions;
+export default filterSlice.reducer;
