@@ -7,9 +7,6 @@ import { useDispatch } from "react-redux";
 
 const App = () => {
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   anecdotes.getAll().then((anecdotes) => dispatch(setAnecdotes(anecdotes)));
-  // });
   useEffect(() => {
     dispatch(intitializeAnecdotes())
   }, [])

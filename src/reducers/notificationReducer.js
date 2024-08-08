@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { timeout } from "../reducers/notificationTimeoutReducer";
 
 const initialState = "This is the initial notification.";
 
@@ -6,18 +7,24 @@ const notificationSlice = createSlice({
   name: "notification",
   initialState,
   reducers: {
-    newAnecdoteNotification(state, action) {
-      return "You created a new anecdote: " + action.payload.content;
-    },
-    voteAnecdoteNotification(state, action) {
-      return "You voted for: " + action.payload;
-    },
     clearNotification() {
       return null;
+    },
+    notify(state, action) {
+      return action.payload;
     },
   },
 });
 
-export const { newAnecdoteNotification, voteAnecdoteNotification, clearNotification } =
-  notificationSlice.actions;
+export const setNotification = (message, duration) => {
+  return async (dispatch) => {
+    const timeoutId = setTimeout(() => {
+      dispatch(clearNotification(null));
+    }, duration * 1000);
+    dispatch(timeout(timeoutId));
+    dispatch(notify(message));
+  };
+};
+
+export const { clearNotification, notify } = notificationSlice.actions;
 export default notificationSlice.reducer;
