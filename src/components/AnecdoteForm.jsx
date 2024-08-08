@@ -5,7 +5,6 @@ import {
   clearNotification,
 } from "../reducers/notificationReducer";
 import { timeout } from "../reducers/notificationTimeoutReducer";
-import anecdotes from "../services/anecdotes";
 
 export const AnecdoteForm = () => {
   const dispatch = useDispatch();
@@ -17,9 +16,8 @@ export const AnecdoteForm = () => {
       dispatch(clearNotification(null));
     }, 5000);
     dispatch(timeout(timeoutId));
-    const postedAnecdote = await anecdotes.createNew(newAnecdote);
-    dispatch(createAnecdote(postedAnecdote));
-    dispatch(newAnecdoteNotification(postedAnecdote));
+    dispatch(createAnecdote(newAnecdote));
+    dispatch(newAnecdoteNotification(newAnecdote));
   };
 
   return (
