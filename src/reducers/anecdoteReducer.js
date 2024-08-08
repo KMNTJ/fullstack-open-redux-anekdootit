@@ -12,9 +12,9 @@ const anecdoteSlice = createSlice({
         votes: 0,
       });
     },
-    vote(state, action) {
+    voteReducer(state, action) {
       const newState = state.map((o) =>
-        o.id === action.payload ? { ...o, votes: o.votes + 1 } : o
+        o.id === action.payload.id ? { ...o, votes: action.payload.votes } : o
       );
       newState.sort((a, b) => b.votes - a.votes);
       return newState;
@@ -39,6 +39,13 @@ export const createAnecdote = (anecdote) => {
   };
 };
 
-export const { createAnecdoteReducer, vote, setAnecdotesReducer } =
+export const vote = (anecdoteId) => {
+  return async (dispatch) => {
+    const votedAnecdote = await anecdotesDb.vote(anecdoteId);
+    dispatch(voteReducer(votedAnecdote));
+  };
+};
+
+export const { createAnecdoteReducer, voteReducer, setAnecdotesReducer } =
   anecdoteSlice.actions;
 export default anecdoteSlice.reducer;
